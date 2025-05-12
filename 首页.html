@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="font/iconfont.js"></script>
+    <link rel="stylesheet" href="swiper/swiper-bundle.min.css">
+    <style>
+        .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: rgb(230, 230, 230);
+        }
+        .dhw {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #fff;
+            position: relative;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            color: #333;
+        }
+        .search-container {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            margin: 0 20px;
+        }
+        .dropdown {
+            padding: 0; /* 去掉内边距 */
+            border: 1px solid #e0e0e0; /* 添加边框 */
+            border-right: none; /* 去掉右边框 */
+            background-color: #fff; /* 背景色 */
+            height: 36px; /* 固定高度 */
+            outline: none; /* 去掉外边框 */
+        }
+        .dropdown select {
+            border: none; /* 去掉边框 */
+            outline: none; /* 去掉外边框 */
+            height: 100%; /* 高度与父元素一致 */
+            font-size: 16px; /* 字体大小 */
+            padding: 0 10px; /* 内边距 */
+            appearance: none; /* 去掉默认的下拉箭头 */
+            background-color: transparent; /* 背景透明 */
+        }
+        .search-input {
+            border: 1px solid #e0e0e0;
+            width: 300px; /* 固定宽度 */
+            height: 36px; /* 固定高度 */
+            padding: 0; /* 去掉内边距 */
+            line-height: 36px; /* 保持与高度一致 */
+            font-size: 16px; /* 字体大小 */
+        }
+        .search-input {
+            outline: none;
+            border-color: #f56c6c;
+        }
+        .search-button {
+            background-color: #f56c6c;
+            color: white;
+            padding: 0 15px; /* 去掉上下内边距 */
+            border: none;
+            border-radius: 0 4px 4px 0;
+            height: 36px; /* 与输入框高度一致 */
+            cursor: pointer;
+            line-height: 36px; /* 保持与按钮高度一致 */
+        }
+        .menu {
+            display: flex;
+            align-items: center;
+        }
+        .menu a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            padding: 0 10px; /* 添加内边距 */
+        }
+        .menu a:not(:last-child):after {
+            content: "|"; /* 添加竖线 */
+            margin-left: 10px; /* 竖线与文字的间隔 */
+            color: black; /* 竖线颜色 */
+        }
+        .wrap{
+            width: 1400px;
+            margin: 0 auto;/* 为了让盒子居中 */
+            overflow: hidden;
+            height: 400px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px auto;
+        }
+        .zuo{
+            width: 300px;
+            height: 400px;
+            float: left;
+            padding: 10px;
+            border: 1px solid #ccc; /* 边框 */
+            border-radius: 5px; /* 圆角边框 */
+            margin: 20px auto; /* 居中显示 */
+            background-color: #fff;
+            border-radius: 5px; /* 圆角边框 */
+        }
+        .item {
+            display: block; /* 将a标签显示为块级元素 */
+            padding: 10px;
+            margin-bottom: 5px;
+            text-decoration: none; /* 移除下划线 */
+            color: inherit; /* 继承父元素的颜色 */
+            cursor: pointer; /* 改变鼠标悬停时的光标样式 */
+            background-color: #fff;
+            margin-top: 10px;
+        }
+        .item:hover {
+            background-color: #e9e9e9; /* 鼠标悬停时的背景色变化 */
+        }
+        .swiper {
+            width: 800px;
+            height: 400px;
+        }  
+        .swiper .swiper-wrapper{
+            position: relative;
+        }
+        .swiper .swiper-wrapper img{
+            width: 100%;height: 100%;
+        }
+        .you{
+            width: 300px;
+            height: 400px;
+            background-color: #fff;
+            float: left;
+        }
+        .app-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .app-item2 {
+            background-color: rgb(237, 65, 42);
+            border-radius: 8px;
+            padding: 7px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .app-item {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 7px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .app-icon {
+            margin-right: 10px;
+        }
+        .app-title {
+            font-weight: bold;
+        }
+        .app-description {
+            color: #666;
+        }
+        .app-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+        .center-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .container {
+            width: 1400px; /* 设置容器宽度 */
+            height: 300px; /* 设置容器高度 */
+            margin: 0 auto;/* 为了让盒子居中 */
+            overflow-x: auto; /* 允许横向滚动 */
+            display: flex; /* 使用flexbox布局 */
+            align-items: stretch; /* 伸展以填满容器 */
+            justify-content: flex-start; /* 左对齐 */
+            padding: 10px; /* 内边距 */
+            box-sizing: border-box; /* 使内边距包含在width和height内 */
+            background-color: #fff; /* 背景颜色 */
+            border-radius: 10px; /* 圆角 */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 阴影 */
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            width: 250px; /* 设置卡片宽度 */
+            margin: 10px; /* 增加间距 */
+            display: flex;
+            flex-direction: column; /* 纵向排列 */
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* 添加过渡效果 */
+            cursor: pointer; /* 鼠标悬停时光标变化 */
+        }
+        .card:hover {
+            transform: scale(1.05); /* 鼠标悬停时放大 */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* 鼠标悬停时阴影变化 */
+        }
+        .image-container {
+            width: 100%; /* 图片容器宽度自适应 */
+            height: 150px; /* 固定高度 */
+            overflow: hidden; /* 隐藏溢出内容 */
+        }
+        img {
+            width: 100%; /* 图片自适应宽度 */
+            height: 100%; /* 图片自适应高度 */
+            object-fit: cover; /* 图片裁剪 */
+            border-radius: 10px 10px 0 0; /* 只圆角顶部 */
+        }
+        .text-container {
+            padding: 10px; /* 内边距 */
+            flex-grow: 1; /* 让文字部分占据更多空间 */
+            display: flex;
+            flex-direction: column; /* 纵向排列 */
+            justify-content: space-between; /* 使内容均匀分布 */
+            text-align: center;
+        }
+        .teacher {
+            font-weight: bold;
+            font-size: 16px; /* 调整字体大小 */
+        }
+        .time {
+            color: #888;
+            font-size: 14px;
+        }
+        .title {
+            margin-top: 10px; /* 增加顶部边距 */
+            font-size: 14px;
+        }
+        h1{
+            padding: 0;
+            margin: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        .box{
+            width: 1400px;
+            height: 32px;
+            line-height: 32px;
+            margin: 20px auto 0;/* 为了让盒子居中 */
+        }
+        .box h1{
+            font-size: 20px;
+            float: left;
+            padding-left: 10px;
+        }
+        .box a{
+            font-size: 12px;
+            margin-right: 8px;
+            float: right;
+            color: #333;
+        }
+        .card2 {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            width: 250px; /* 设置卡片宽度 */
+            margin: 10px; /* 增加间距 */
+            display: flex;
+            flex-direction: column; /* 纵向排列 */
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* 添加过渡效果 */
+            cursor: pointer; /* 鼠标悬停时光标变化 */
+        }
+        .card2:hover {
+            box-shadow: 10px 10px 5px #666;/*盒子阴影:x轴偏移量，y轴偏移量，模糊的宽度，颜色*/
+        }
+        h2{
+            padding: 0;
+            margin: 15px 0 0 15px ;
+        }
+        .text-container2 {
+            padding: 10px; /* 内边距 */
+            flex-grow: 1; /* 让文字部分占据更多空间 */
+            display: flex;
+            flex-direction: column; /* 纵向排列 */
+            justify-content: space-between; /* 使内容均匀分布 */
+            text-align: left;
+        }
+        .free-container {
+            text-align: right; /* 右对齐 */
+        }
+        .free {
+            font-size: 15px;
+            color: red;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+        .line {
+            border-top: 1px solid gray; /* 灰色实线 */
+            margin: 10px 0;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .footer .social-icons img {
+            width: 24px;
+            height: 24px;
+            margin: 0 10px;
+        }
+        .download-buttons img {
+            width: 100px;
+            height: auto;
+            margin: 0 10px;
+        }
+        .wrap2{
+            width: 1400px;
+            margin: 0 auto;/* 为了让盒子居中 */
+            overflow: hidden;
+        }
+        .nav{
+            height: 60px;
+            background-color:  rgb(230, 230, 230);
+        }
+        .main{
+            width: 1000px;
+            height: 250px;
+            background-color:#292421;
+            float: left;
+            text-align: left;
+        }
+        .aside{
+            width: 400px;
+            height:250px;
+            background-color:#292421;
+            float: left;
+            text-align: right;
+        }
+        .wrap3{
+            width:1690px;
+            margin: 0 auto;/* 为了让盒子居中 */
+            overflow: hidden;
+            background-color:#292421;
+        }
+    </style>
+</head>
+<body>
+    <div class="dhw">
+        <div class="logo">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-logo"></use>
+            </svg>
+            <span>网易云课堂</span>
+        </div>
+ 
+        <div class="search-container">
+            <div class="dropdown">
+                <select>
+                    <option value="course">课程</option>
+                    <option value="netSchool">网校</option>
+                </select>
+            </div>
+            <input type="text" class="search-input" placeholder="考研全科规划指南，解锁考研秘籍！">
+            <button class="search-button">搜索</button>
+        </div>
+        <div class="menu"><a href="#">下载app</a></div>
+        <div class="menu">
+            <a href="#">会员中心</a>
+            <a href="我的学习.html">我的学习</a>
+            <a href="登录-注册.html">登录/注册</a>
+        </div>
+    </div>
+    <div class="wrap">
+        <div class="zuo">
+            <a href="#" class="item">考研·升学：考研全科</a>
+            <a href="#" class="item">AI·数字技能：人工智能 / 设计创作</a>
+            <a href="#" class="item">职业·认证：医疗健康</a>
+            <a href="#" class="item">英语·留学：实用英语 / 四六级</a>
+            <a href="#" class="item">职场·办公室：办公室效率 / 沟通管理</a>
+            <a href="#" class="item">家庭·育儿：家庭教育 / 家庭管理</a>
+            <a href="#" class="item">设计·摄影：视频制作 / 摄影修片 / 影视</a>
+        </div>
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <a href="#"><img src="../img2/11.png" alt=""></a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#"><img src="../img2/22.png" alt=""></a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#"><img src="../img2/33.png" alt=""></a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#"><img src="../img2/44.png" alt=""></a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#"><img src="../img2/55.png" alt=""></a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#"><img src="../img2/66.png" alt=""></a>
+                </div>
+                <div class="swiper-slide">
+                    <a href="#"><img src="../img2/77.png" alt=""></a>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div><!-- 点 -->
+            <!-- 左右箭头 -->
+             <div class="swiper-button-prev"></div>
+             <div class="swiper-button-next"></div>
+            </div>
+        <div class="you">
+            <h2>特色应用</h2>
+                <ul class="app-list">
+                    <li class="app-item2">
+                        <a href="#" class="app-link">
+                        <div class="logo">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-dianshi-bofang"></use>
+                            </svg>
+                        </div>
+                        <div class="app-icon red-background" ></div>
+                        <div>
+                            <div class="app-title">AI公开课</div>
+                            <div class="app-description">免费学习国内外AI前沿内容</div>
+                        </div>
+                        </a>
+                    </li>
+                    <li class="app-item">
+                        <a href="#" class="app-link">
+                        <div class="logo">
+                            <svg class="icon" aria-hidden="true">
+                               <use xlink:href="#icon-huatu"></use>
+                            </svg>
+                        </div>
+                        <div class="app-icon"></div>
+                        <div>
+                            <div class="app-title">AI设计工坊</div>
+                            <div class="app-description">激发创造灵感，畅享创作自由</div>
+                        </div>
+                        </a>
+                    </li>
+                    <li class="app-item">
+                        <a href="#" class="app-link">
+                        <div class="logo">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-chuangyisheji"></use>
+                            </svg>
+                        </div>
+                        <div class="app-icon"></div>
+                        <div>
+                            <div class="app-title">Adobe创意设计课</div>
+                            <div class="app-description">Adobe官方出品</div>
+                        </div>
+                        </a>
+                    </li>
+                    <li class="app-item">
+                        <a href="#" class="app-link">
+                        <div class="logo">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-jisuanqi"></use>
+                            </svg>
+                        </div>
+                        <div class="app-icon"></div>
+                        <div>
+                            <div class="app-title">考研数学 - 每日电题</div>
+                            <div class="app-description">武书连名师精讲，助你轻松上岸</div>
+                        </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <script src="swiper/swiper-bundle.min.js"></script>
+        <script>
+        var mySwiper = new Swiper ('.swiper', {
+            direction: 'horizontal', // 垂直切换选项vertical
+            loop: true, // 循环模式选项
+            autoplay:true,//自动切换
+            // 如果需要分页器
+            pagination: {
+              el: '.swiper-pagination',
+            },
+            // 如果需要前进后退按钮
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            }
+          });
+        </script>
+        <div class="box">
+            <h1>直播公开课</h1>
+            <a href="#">更多<<</a>
+        </div>
+    
+        <div class="container">
+            <a href="#" class="card"> <!-- 为每个卡片添加链接 -->
+                <div class="image-container">
+                    <img src="../img2/teacher1.png" alt="讲师1">
+                </div>
+                <div class="text-container">
+                    <div class="teacher">武忠祥 刘亚男 唐泗</div>
+                    <div class="time">明天 19:00</div>
+                    <div class="title">【26考研】全科新手规划与备考宝典</div>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="image-container">
+                    <img src="../img2/teacher2.png" alt="讲师2">
+                </div>
+                <div class="text-container">
+                    <div class="teacher">孙志楠</div>
+                    <div class="time">明天 19:30</div>
+                    <div class="title">网易AI大模型产品经理</div>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="image-container">
+                    <img src="../img2/teacher3.png" alt="讲师3">
+                </div>
+                <div class="text-container">
+                    <div class="teacher">祝连山</div>
+                    <div class="time">明天 20:00</div>
+                    <div class="title">看漫画速记10000词</div>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="image-container">
+                    <img src="../img2/teacher4.png" alt="讲师4">
+                </div>
+                <div class="text-container">
+                    <div class="teacher">叶枫</div>
+                    <div class="time">12月19日 19:30</div>
+                    <div class="title">【摄影的奥秘】零基础摄影入门公开课</div>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="image-container">
+                    <img src="../img2/teacher5.png" alt="讲师4">
+                </div>
+                <div class="text-container">
+                    <div class="teacher">梁焕臻</div>
+                    <div class="time">2024-12-17 20:00</div>
+                    <div class="title">10分钟甩掉字幕看美剧</div>
+                </div>
+            </a>
+        </div>
+        <div class="box">
+            <h1>免费好课</h1>
+        </div>
+    
+        <div class="container">
+            <a href="#" class="card2"> <!-- 为每个卡片添加链接 -->
+                <div class="image-container2">
+                    <img src="../img2/teacher6.png" alt="讲师6">
+                </div>
+                <div class="text-container">
+                    <div class="teacher">三天英语沉浸式提升营</div>
+                    <div class="time">时间：随到随学</div>
+                    <div class="title">导师：杨亮</div>
+                    <div class="line"></div> <!-- 灰色实线 -->
+                    <div class="free-container">
+                        <div class="free">免费</div>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="card2">
+                <div class="image-container2">
+                    <img src="../img2/teacher7.png" alt="讲师7">
+                </div>
+                <div class="text-container2">
+                    <div class="teacher">四六级听力200+备考攻略</div>
+                    <div class="time">时间：随到随学</div>
+                    <div class="title">导师：欧阳萍</div>
+                    <div class="line"></div> <!-- 灰色实线 -->
+                    <div class="free-container">
+                        <div class="free">免费</div>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="card2">
+                <div class="image-container">
+                    <img src="../img2/teacher8.png" alt="讲师8">
+                </div>
+                <div class="text-container2">
+                    <div class="teacher">利用AI非绿幕移除/替换视频背景</div>
+                    <div class="time">时间：随到随学</div>
+                    <div class="title">AI课堂智学</div>
+                    <div class="line"></div> <!-- 灰色实线 -->
+                    <div class="free-container">
+                        <div class="free">免费</div>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="card2">
+                <div class="image-container">
+                    <img src="../img2/teacher9.png" alt="讲师9">
+                </div>
+                <div class="text-container2">
+                    <div class="teacher">使用Coze搭建AI Agents</div>
+                    <div class="time">时间：随到随学</div>
+                    <div class="title">导师：通往AGI之路</div>
+                    <div class="line"></div> <!-- 灰色实线 -->
+                    <div class="free-container">
+                        <div class="free">免费</div>
+                    </div>
+                </div>
+            </a>
+            <a href="#" class="card2">
+                <div class="image-container">
+                    <img src="../img2/teacher10.png" alt="讲师10">
+                </div>
+                <div class="text-container2">
+                    <div class="teacher">张钹院士:GPT是工具，不会超越人</div>
+                    <div class="time">时间：随到随学</div>
+                    <div class="title">导师：人文清华</div>
+                    <div class="line"></div> <!-- 灰色实线 -->
+                    <div class="free-container">
+                        <div class="free">免费</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="wrap3">
+            <div class="nav"></div>
+        <div class="wrap2">
+            
+        <div class="footer">
+            <div class="main">
+            <div>
+                <a href="#">关于我们</a> | 
+                <a href="#">联系我们</a> | 
+                <a href="#">帮助中心</a> | 
+                <a href="#">中国大学MOOC</a> | 
+                <a href="#">卡塔编程</a> | 
+                <a href="#">有道招聘</a> | 
+                <a href="廉政举报.html">康政举报</a>
+            </div>
+            <p>©1997-2024 网易公司 版权所有 粤B2-20090191-18</p>
+            <p>违法和不良信息举报电话（涉未成年人）：0571-89853416 举报邮箱（涉未成年人）：jb@rd.netease.com</p>
+            
+        </div>
+        <div class="aside">
+            <div class="download-buttons">
+                <a href="#"><svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-iPhone"></use>
+                  </svg>App Store下载</a>
+                <a href="#"><svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-anzhuo-android"></use>
+                  </svg>Android 下载</a>
+            </div>
+            <p>关注我们：</p>
+            <div class="social-icons">
+                <a href="#"><svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-weixin"></use>
+                  </svg> </a>|
+                <a href="#"><svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-xinlangweibo"></use>
+                  </svg></a>
+                  
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>    
+</body>
+</html>
